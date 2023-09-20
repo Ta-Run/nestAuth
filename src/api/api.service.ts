@@ -63,7 +63,6 @@ export class ApiService {
         throw new UnauthorizedException();
       }
       const user = await this.userModel.findOne({ id: data['_id'] });
-      // const { password, ...result } = user;
       return user;
     } catch (e) {
       throw new UnauthorizedException();
@@ -73,12 +72,21 @@ export class ApiService {
   async logout(response: Response) {
     response.clearCookie('jwt');
     return {
-      message: 'success',
+      message: 'Logout Successfully',
     };
   }
 
-  async getrandomJoke() {
-    const joke = await axios.get('https://api.chucknorris.io/jokes/random');
-    return joke.data.value;
+  async getrandomJoke(request: Request) {
+    try {
+      const cookies = request.cookies['jwt'];
+      const data = await this.jwtService.verifyAsync(cookies);
+      if (!data) {
+        throw new UnauthorizedException();
+      }
+      const joke = await axios.get(process.env.RandomeJoke);
+     return joke.data.value;
+    } catch (e) {
+      throw new UnauthorizedException();
+    }
   }
 }

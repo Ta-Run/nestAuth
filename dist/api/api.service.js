@@ -71,12 +71,22 @@ let ApiService = class ApiService {
     async logout(response) {
         response.clearCookie('jwt');
         return {
-            message: 'success',
+            message: 'Logout Successfully',
         };
     }
-    async getrandomJoke() {
-        const joke = await axios_1.default.get('https://api.chucknorris.io/jokes/random');
-        return joke.data.value;
+    async getrandomJoke(request) {
+        try {
+            const cookies = request.cookies['jwt'];
+            const data = await this.jwtService.verifyAsync(cookies);
+            if (!data) {
+                throw new common_1.UnauthorizedException();
+            }
+            const joke = await axios_1.default.get(process.env.RandomeJoke);
+            return joke.data.value;
+        }
+        catch (e) {
+            throw new common_1.UnauthorizedException();
+        }
     }
 };
 exports.ApiService = ApiService;

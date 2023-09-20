@@ -33,8 +33,8 @@ let ApiController = class ApiController {
     logout(response) {
         return this.apiService.logout(response);
     }
-    randomJoke() {
-        return this.apiService.getrandomJoke();
+    randomJoke(request) {
+        return this.apiService.getrandomJoke(request);
     }
 };
 exports.ApiController = ApiController;
@@ -69,8 +69,9 @@ __decorate([
 ], ApiController.prototype, "logout", null);
 __decorate([
     (0, common_1.Get)('/random-joke'),
+    __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], ApiController.prototype, "randomJoke", null);
 exports.ApiController = ApiController = __decorate([

@@ -43,5 +43,5 @@ export declare class ApiService {
     logout(response: Response): Promise<{
         message: string;
     }>;
-    getrandomJoke(): Promise<any>;
+    getrandomJoke(request: Request): Promise<any>;
 }

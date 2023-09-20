@@ -42,5 +42,5 @@ export declare class ApiController {
     logout(response: Response): Promise<{
         message: string;
     }>;
-    randomJoke(): Promise<any>;
+    randomJoke(request: Request): Promise<any>;
 }
